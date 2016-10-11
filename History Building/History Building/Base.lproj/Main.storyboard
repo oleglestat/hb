@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="History_Building" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
+                        <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
+                    </layoutGuides>
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-10" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="iB7-eW-0O0">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="4xy-xa-jfN"/>
+                                    <constraint firstAttribute="height" constant="30" id="Qv0-LS-zMQ"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="tiltChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="ug6-XT-ROo"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="70" translatesAutoresizingMaskIntoConstraints="NO" id="u3X-Gr-Vvr">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="YcB-aL-5k1"/>
+                                    <constraint firstAttribute="height" constant="30" id="kYz-vQ-zcp"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="torqueChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="jWr-n4-Ry6"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="iB7-eW-0O0" secondAttribute="bottom" constant="20" id="7lL-UW-D0q"/>
+                            <constraint firstItem="iB7-eW-0O0" firstAttribute="trailing" secondItem="3se-qz-xqx" secondAttribute="trailingMargin" id="Dsh-Mi-hem"/>
+                            <constraint firstItem="u3X-Gr-Vvr" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leadingMargin" constant="-60" id="jts-l7-aDV"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="u3X-Gr-Vvr" secondAttribute="bottom" constant="80" id="kwX-9b-hs8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tiltControll" destination="iB7-eW-0O0" id="DKm-uA-MgM"/>
+                        <outlet property="torqueControll" destination="u3X-Gr-Vvr" id="qEa-16-Cre"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
