@@ -12,13 +12,16 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 	
+	// Outlet for sliders
 	@IBOutlet weak var torqueControll: UISlider! {
 		didSet{
+			// rotating left slider to 90 degrees
 			torqueControll.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
 		}
 	}
 	@IBOutlet weak var tiltControll: UISlider!
 	
+	// strong reference to game scene (*.sks) inside viewController
 	var currentGame: GameScene!
 
     override func viewDidLoad() {
@@ -32,7 +35,9 @@ class GameViewController: UIViewController {
                 
                 // Present the scene
                 view.presentScene(scene)
+				// setting property for direct access to scene
 				currentGame = scene as! GameScene
+				// giving access to viewController to scene
 				currentGame.viewController = self
             }
             
@@ -48,13 +53,10 @@ class GameViewController: UIViewController {
     }
 	
 	@IBAction func torqueChanged(_ sender: UISlider) {
-		//currentGame.player.physicsBody!.velocity.dy = CGFloat(torqueControll.value)
-		//currentGame.player.physicsBody!.applyForce(CGVector(dx: 0.0, dy: CGFloat(torqueControll.value) * 100))
 		currentGame.playerVector.dy = CGFloat(torqueControll.value) * 10
 	}
 	
 	@IBAction func tiltChanged(_ sender: UISlider) {
-		//currentGame.player.physicsBody!.velocity.dx = CGFloat(tiltControll.value)
 		currentGame.playerVector.dx = CGFloat(tiltControll.value)
 
 	}
