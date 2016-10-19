@@ -65,7 +65,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 	// function used to update frame display
 	override func update(_ currentTime: TimeInterval) {
 		updatePlayer()
-		boundsCheck()
 	}
 	
 	func setupNodes() {
@@ -75,6 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		fgNode = worldNode.childNode(withName: "Foreground")!
 		platformsNode = worldNode.childNode(withName: "PlatformsOverlay")!
 		player = fgNode.childNode(withName: "player") as! SKSpriteNode
+		// world physics and boundaries
+		self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
 		// adding scale to cameraNode, adding camera to scene and setting camera property
 		cameraNode.xScale = 0.5
 		cameraNode.yScale = 0.5
@@ -101,38 +102,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 	func updatePlayer() {
 		// applying constant force to player
 		player.physicsBody!.applyForce(playerVector)
-	}
-	
-	func boundsCheck() {
-		var playerPos = convert(player.position, from: fgNode)
-		let bottomLeft = CGPoint.zero + CGPoint(x: player.size.width/2, y: player.size.height/2)
-		let topRight = CGPoint(x: size.width - player.size.width/2, y: size.height - player.size.height/2)
-		
-		print("converted player \(playerPos)")
-		//print("regular player \(player.position)")
-		print("BL \(bottomLeft)")
-		print("TR \(topRight)")
-		
-		if playerPos.x <= bottomLeft.x {
-			playerPos = convert(CGPoint(x: bottomLeft.x, y: playerPos.y), to: fgNode)
-			player.position = playerPos
-			player.physicsBody!.velocity.dx = 0
-		}
-		if playerPos.x >= topRight.x {
-			playerPos = convert(CGPoint(x: topRight.x, y: playerPos.y), to: fgNode)
-			player.position = playerPos
-			player.physicsBody!.velocity.dx = 0
-		}
-		if playerPos.y <= bottomLeft.y {
-			playerPos = convert(CGPoint(x: playerPos.x, y: bottomLeft.y), to: fgNode)
-			player.position = playerPos
-			player.physicsBody!.velocity.dy = 0
-		}
-		if playerPos.y >= topRight.y {
-			playerPos = convert(CGPoint(x: playerPos.x, y: topRight.y), to: fgNode)
-			player.position = playerPos
-			player.physicsBody!.velocity.dy = 0
-		}
 	}
 	
 	//Camera setting: following player and respecting background edges
