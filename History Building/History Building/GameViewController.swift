@@ -12,20 +12,32 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 	
-	// Outlet for sliders
-	@IBOutlet weak var torqueControll: UISlider! {
-		didSet{
-			// rotating left slider to 90 degrees
-			torqueControll.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
-		}
-	}
-	@IBOutlet weak var tiltControll: UISlider!
+//	// Outlet for sliders
+//	@IBOutlet weak var torqueControll: UISlider! {
+//		didSet{
+//			// rotating left slider to 90 degrees
+//			torqueControll.transform = CGAffineTransform(rotationAngle: CGFloat(-M_PI_2))
+//		}
+//	}
+//	@IBOutlet weak var tiltControll: UISlider!
 	
-	// strong reference to game scene (*.sks) inside viewController
-	var currentGame: GameScene!
+//	// strong reference to game scene (*.sks) inside viewController
+//	var currentGame: GameScene!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		/*
+		Set up the `touchControlInputNode` to cover the entire view, and
+		size the controls to a reasonable value.
+		*/
+		let viewSize = view.bounds.size
+		let controlLength = min(GameplayConfiguration.TouchControl.minimumControlSize, viewSize.width * GameplayConfiguration.TouchControl.idealRelativeControlSize)
+		let controlSize = CGSize(width: controlLength, height: controlLength)
+		
+		let touchControlInputNode = TouchControlInputNode(frame: view.bounds, thumbStickNodeSize: controlSize)
+		let gameInput = GameInput(nativeControlInputSource: touchControlInputNode)
+
 		
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
@@ -35,10 +47,10 @@ class GameViewController: UIViewController {
                 
                 // Present the scene
                 view.presentScene(scene)
-				// setting property for direct access to scene
-				currentGame = scene as! GameScene
-				// giving access to viewController to scene
-				currentGame.viewController = self
+//				// setting property for direct access to scene
+//				currentGame = scene as! GameScene
+//				// giving access to viewController to scene
+//				currentGame.viewController = self
             }
             
             view.ignoresSiblingOrder = true
@@ -52,13 +64,13 @@ class GameViewController: UIViewController {
         return true
     }
 	
-	@IBAction func torqueChanged(_ sender: UISlider) {
-		currentGame.playerVector.dy = CGFloat(torqueControll.value) * 10
-	}
-	
-	@IBAction func tiltChanged(_ sender: UISlider) {
-		currentGame.playerVector.dx = CGFloat(tiltControll.value)
-
-	}
+//	@IBAction func torqueChanged(_ sender: UISlider) {
+//		currentGame.playerVector.dy = CGFloat(torqueControll.value) * 10
+//	}
+//	
+//	@IBAction func tiltChanged(_ sender: UISlider) {
+//		currentGame.playerVector.dx = CGFloat(tiltControll.value)
+//
+//	}
 	
 }
